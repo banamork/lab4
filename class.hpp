@@ -7,20 +7,21 @@ class desciplines{
     protected:
         unsigned int hours;
     public:
-        virtual void printInfo();
-        virtual void returnType();
+        virtual void printInfo() = 0;
+        virtual int returnType() = 0;
         
         void returnTime();
         void setTime();
 };
 
 class lections : public desciplines{
-    protected:
+   protected:
         unsigned int hours;
     public:
         lections();
+        ~lections();
     //virtual
-        void returnType();
+        int returnType();
         void printInfo();
     //change parameters
         void setNames();
@@ -39,9 +40,10 @@ class seminars : public desciplines{
         unsigned int hours;
     public:
         seminars();
+        ~seminars();
     //virtual
         void printInfo();
-        void returnType();
+        int returnType();
     //change parameters
         void setStart();
         void setControl();
@@ -62,9 +64,10 @@ class laboratory : public desciplines{
         unsigned int lab_size; 
     public:
         laboratory();
+        ~laboratory();
     //virtual
         void printInfo();
-        void returnType();
+        int returnType();
     //change parameters
         void setDurability();
         void setRoom();
@@ -81,8 +84,9 @@ class table{
         std::map <int, laboratory> lab_dict;
     public:
         void addNew();
-        int find();
-        int remove();
+        int setHours(int key);
+        int find(int key);
+        int remove(int key);
         void printTable();
 };
 

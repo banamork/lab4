@@ -9,6 +9,7 @@ void desciplines::returnTime(){
 }
 
 void desciplines::setTime(){
+    std::cout << "Insert new time:" << std::endl;
     std::cin >> hours;
     if(std::cin.fail()) {
          std::cin.clear();
@@ -29,8 +30,16 @@ lections::lections(){
     }
 }
 
-void lections::returnType(){
-    std::cout << "Type Lections" << std::endl;
+lections::~lections(){
+    hours = 0;
+    course = " ";
+    delete []names;
+    size = 0;
+}
+
+int lections::returnType(){
+    return 1;
+    //std::cout << "Type Lections" << std::endl;
 }
 
 void lections::printInfo(){
@@ -103,8 +112,16 @@ seminars::seminars(){
     KR = 1;
 }
 
-void seminars::returnType(){
-    std::cout << "Type Seminars" << std::endl;
+seminars::~seminars(){
+    hours = 0;
+    sem_start = 0;
+    KR = 0;
+    DZ = 0;
+}
+
+int seminars::returnType(){
+    return 2;
+    //std::cout << "Type Seminars" << std::endl;
 }
 
 void seminars::printInfo(){
@@ -158,8 +175,18 @@ laboratory::laboratory(){
     lab_size = 40;
 }
 
-void laboratory::returnType(){
-    std::cout << "Type Laboratory" << std::endl;
+laboratory::~laboratory(){
+    hours = 0;
+    lab_start = 0;
+    durability = 0;
+    room = 0;
+    index = 1;
+    lab_size = 0;
+}
+
+int laboratory::returnType(){
+    return 3;
+    //std::cout << "Type Laboratory" << std::endl;
 }
 
 void laboratory::printInfo(){
@@ -217,7 +244,111 @@ void laboratory::setStart(){
 
 //for table:
 
-/*void table::addNew(){
-    std::map.insert(std::pair<int, desciplines>(table.number, desciplines added));
+void table::addNew(){
+    std::cout << "Chouse descipline:" << std::endl;
+    std::cout << "1 - Lection" << std::endl << "2 - Seminar" << std::endl << "3 - Laboratory" << std::endl;
+    int choice;
+    std::cin >> choice;
+    if(choice == 1){
+        lections lection;
+        lec_dict.insert(std::make_pair(number, lection));
+        number = number + 1;
+    }
+    else if(choice == 2){
+        seminars seminar;
+        sem_dict.insert( std::make_pair(number, seminar));
+        number = number + 1;
+    }
+    else if(choice == 3){
+        laboratory lab;
+        lab_dict.insert(std::make_pair(number, lab));
+        number = number + 1;
+    }
+    else{
+        std::cin.clear();
+        std::cin.ignore();
+        std::cout << "Incorrect input! Repeat please!" << std::endl;
+    }
+}
 
-}*/
+int table::find(int key){
+    if(lec_dict.find(key) != lec_dict.cend()) {
+        lec_dict.find(key)->second.printInfo();
+        return 0;
+        }
+    if (sem_dict.find(key) != sem_dict.cend()) {
+        sem_dict.find(key)->second.printInfo();
+        return 0;
+    }
+    if(lab_dict.find(key) != lab_dict.cend()) {
+        lab_dict.find(key)->second.printInfo();
+        return 0;
+    }
+    std::cout << "Not found" << std::endl;
+    return -1;
+}
+
+int table::setHours(int key){
+    if(lec_dict.find(key) != lec_dict.cend()) {
+        lec_dict.find(key)->second.setTime();
+        std::cout << "Installed" << std::endl;
+        return 0;
+        }
+    if (sem_dict.find(key) != sem_dict.cend()) {
+        sem_dict.find(key)->second.setTime();
+        std::cout << "Installed" << std::endl;
+        return 0;
+    }
+    if(lab_dict.find(key) != lab_dict.cend()) {
+        lab_dict.find(key)->second.setTime();
+        std::cout << "Installed" << std::endl;
+        return 0;
+    }
+    std::cout << "Not found" << std::endl;
+    return -1;
+}
+
+
+int table::remove(int key){
+if(lec_dict.find(key) != lec_dict.cend()) {
+        lec_dict.find(key)->second.~lections();
+        auto deleted = lec_dict.find(key);
+        lec_dict.erase(deleted);
+        std::cout << "Deleted" << std::endl;
+        return 0;
+        }
+    if (sem_dict.find(key) != sem_dict.cend()){
+        sem_dict.find(key)->second.~seminars();
+        auto deleted = sem_dict.find(key);
+        sem_dict.erase(deleted);
+        std::cout << "Deleted" << std::endl;
+        return 0;
+    }
+    if(lab_dict.find(1) != lab_dict.cend()) {
+        lab_dict.find(1)->second.~laboratory();
+        auto deleted = lab_dict.find(key);
+        lab_dict.erase(deleted);
+        std::cout << "Deleted" << std::endl;
+        return 0;
+    }
+    std::cout << "Not found" << std::endl;
+    return -1;
+}
+
+void table::printTable(){
+    std::cout << "Lections" << std::endl;
+    for (auto printed = lec_dict.begin(); printed != lec_dict.end(); printed++){
+        std::cout << printed->first << std::endl;
+        printed->second.printInfo();
+   }
+std::cout << "Seminars" << std::endl;
+    for (auto printed = sem_dict.begin(); printed != sem_dict.end(); printed++){
+        std::cout << printed->first << std::endl;
+        printed->second.printInfo();
+   }
+std::cout << "Laborations" << std::endl;
+    for (auto printed = lab_dict.begin(); printed != lab_dict.end(); printed++){
+        std::cout << printed->first << std::endl;
+        printed->second.printInfo();
+   }
+}
