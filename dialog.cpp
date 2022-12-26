@@ -26,7 +26,7 @@ int user_type(){
 }
 
 int user_teacher(){
-    cout << "You are Teacher!!!" << endl << endl;
+    cout << endl << "You are Teacher!!!" << endl << endl;
     cout << "What do you want?" << endl;
     cout << "1 - Add a new descipline in the plan." << endl;
     cout << "2 - Delete descipline by the key." << endl;
@@ -44,7 +44,7 @@ int user_teacher(){
 }
 
 int user_student(){
-    cout << "You are Student!!!" << endl << endl;
+    cout << endl <<  "You are Student!!!" << endl << endl;
     cout << "1 - View the plan." << endl;
     cout << "2 - Show info by the key" << endl;
     cout << "3 - Back to the menu." << endl;

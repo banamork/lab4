@@ -9,12 +9,12 @@ void desciplines::returnTime(){
 }
 
 void desciplines::setTime(){
-    std::cout << "Insert new time:" << std::endl;
+    std::cout << std::endl << "Insert new time:" << std::endl;
     std::cin >> hours;
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -22,17 +22,18 @@ void desciplines::setTime(){
 
 lections::lections(){
     hours = 2;
-    course = "Annotation at course";
+    course.append("Annotation");
     size = 5;
     names = new int[size];
     for(int i = 0; i < 5; i++){
         names[i] = i;
     }
+    EXAM = 1;
 }
 
 lections::~lections(){
     hours = 0;
-    course = " ";
+    course.clear();
     delete []names;
     size = 0;
 }
@@ -57,7 +58,7 @@ void lections::printInfo(){
 }
 
 void lections::setNames(){
-    std::cout << "What to do?" << std::endl;
+    std::cout << std::endl << "What to do?" << std::endl;
     std::cout << "1 - Create new" << std::endl << "2 - Add to existing" << std::endl;
     int choice;
     std::cin >> choice;
@@ -81,7 +82,7 @@ void lections::setNames(){
 }
 
 void lections::setControl(){
-    std::cout << "What form of control?" << std::endl;
+    std::cout << std::endl << "What form of control?" << std::endl;
     std::cout << "1 - Exam" << std::endl << "2 - Test" << std::endl;
     int choice;
     std::cin >> choice;
@@ -96,7 +97,7 @@ void lections::setControl(){
     else{
         std::cin.clear();
         std::cin.ignore();
-        std::cout << "Incorrect input! Repeat please!" << std::endl;
+        std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -140,12 +141,12 @@ void seminars::setStart(){
      if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
 void seminars::setControl(){
-    std::cout << "What form of control?" << std::endl;
+    std::cout << std::endl << "What form of control?" << std::endl;
     std::cout << "1 - Homework" << std::endl << "2 - Test" << std::endl;
     int choice;
     std::cin >> choice;
@@ -160,7 +161,7 @@ void seminars::setControl(){
     else{
         std::cin.clear();
         std::cin.ignore();
-        std::cout << "Incorrect input! Repeat please!" << std::endl;
+        std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -190,6 +191,7 @@ int laboratory::returnType(){
 }
 
 void laboratory::printInfo(){
+    std::cout << hours << std::endl;
     std::cout << lab_start << std::endl;
     std::cout << durability << std::endl;
     std::cout << room << std::endl;
@@ -202,7 +204,7 @@ void laboratory::setDurability(){
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -211,7 +213,7 @@ void laboratory::setRoom(){
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -220,7 +222,7 @@ void laboratory::setIndex(){
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -229,7 +231,7 @@ void laboratory::setCapacity(){
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
@@ -238,21 +240,25 @@ void laboratory::setStart(){
     if(std::cin.fail()) {
          std::cin.clear();
          std::cin.ignore();
-         std::cout << "Incorrect input! Repeat please!" << std::endl;
+         std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
 //for table:
 
 void table::addNew(){
-    std::cout << "Chouse descipline:" << std::endl;
+    std::cout << std::endl << "Chouse descipline:" << std::endl << std::endl;
     std::cout << "1 - Lection" << std::endl << "2 - Seminar" << std::endl << "3 - Laboratory" << std::endl;
     int choice;
     std::cin >> choice;
     if(choice == 1){
+        std::cout << "loh1";
         lections lection;
+        std::cout << "loh2";
         lec_dict.insert(std::make_pair(number, lection));
+        std::cout << "loh3";
         number = number + 1;
+        std::cout << "loh4";
     }
     else if(choice == 2){
         seminars seminar;
@@ -267,20 +273,23 @@ void table::addNew(){
     else{
         std::cin.clear();
         std::cin.ignore();
-        std::cout << "Incorrect input! Repeat please!" << std::endl;
+        std::cout << std::endl << "Incorrect input! Repeat please!" << std::endl;
     }
 }
 
 int table::find(int key){
     if(lec_dict.find(key) != lec_dict.cend()) {
+        std::cout << std::endl << "LECTION" << std::endl;
         lec_dict.find(key)->second.printInfo();
         return 0;
         }
     if (sem_dict.find(key) != sem_dict.cend()) {
+        std::cout << std::endl << "SEMINAR" << std::endl;
         sem_dict.find(key)->second.printInfo();
         return 0;
     }
     if(lab_dict.find(key) != lab_dict.cend()) {
+        std::cout << std::endl << "LABORATION" << std::endl;
         lab_dict.find(key)->second.printInfo();
         return 0;
     }
@@ -336,18 +345,21 @@ if(lec_dict.find(key) != lec_dict.cend()) {
 }
 
 void table::printTable(){
-    std::cout << "Lections" << std::endl;
+    std::cout << std::endl << "LECTIONS" << std::endl;
     for (auto printed = lec_dict.begin(); printed != lec_dict.end(); printed++){
+        std::cout << std::endl;
         std::cout << printed->first << std::endl;
         printed->second.printInfo();
    }
-std::cout << "Seminars" << std::endl;
+std::cout << std::endl << "SEMINARS" << std::endl;
     for (auto printed = sem_dict.begin(); printed != sem_dict.end(); printed++){
+        std::cout << std::endl;
         std::cout << printed->first << std::endl;
         printed->second.printInfo();
    }
-std::cout << "Laborations" << std::endl;
+std::cout << std::endl << "LABORATIONS" << std::endl;
     for (auto printed = lab_dict.begin(); printed != lab_dict.end(); printed++){
+        std::cout << std::endl;
         std::cout << printed->first << std::endl;
         printed->second.printInfo();
    }
