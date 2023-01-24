@@ -252,22 +252,27 @@ void table::addNew(){
     int choice;
     std::cin >> choice;
     if(choice == 1){
-        std::cout << "loh1";
         lections lection;
-        std::cout << "loh2";
-        lec_dict.insert(std::make_pair(number, lection));
-        std::cout << "loh3";
+        Node<int, lections> *node;
+        node->key = number;
+        node->value = lection;
+        lec_dict.insert(node);
         number = number + 1;
-        std::cout << "loh4";
     }
     else if(choice == 2){
         seminars seminar;
-        sem_dict.insert( std::make_pair(number, seminar));
+        Node<int, seminars> *node;
+        node->key = number;
+        node->value = seminar;
+        sem_dict.insert(node);
         number = number + 1;
     }
     else if(choice == 3){
         laboratory lab;
-        lab_dict.insert(std::make_pair(number, lab));
+        Node<int, laboratory> *node;
+        node->key = number;
+        node->value = lab;
+        lab_dict.insert(node);
         number = number + 1;
     }
     else{
@@ -278,19 +283,19 @@ void table::addNew(){
 }
 
 int table::find(int key){
-    if(lec_dict.find(key) != lec_dict.cend()) {
-        std::cout << std::endl << "LECTION" << std::endl;
-        lec_dict.find(key)->second.printInfo();
-        return 0;
-        }
-    if (sem_dict.find(key) != sem_dict.cend()) {
-        std::cout << std::endl << "SEMINAR" << std::endl;
-        sem_dict.find(key)->second.printInfo();
+    if(lec_dict.find(key) != nullptr){
+        std::cout << number << std::endl;
+        lec_dict.find(key)->value.printInfo();
         return 0;
     }
-    if(lab_dict.find(key) != lab_dict.cend()) {
-        std::cout << std::endl << "LABORATION" << std::endl;
-        lab_dict.find(key)->second.printInfo();
+    if(sem_dict.find(key) != nullptr){
+        std::cout << number << std::endl;
+        sem_dict.find(key)->value.printInfo();
+        return 0;
+    }
+    if(lab_dict.find(key) != nullptr){
+        std::cout << number << std::endl;
+        lab_dict.find(key)->value.printInfo();
         return 0;
     }
     std::cout << "Not found" << std::endl;
@@ -298,18 +303,18 @@ int table::find(int key){
 }
 
 int table::setHours(int key){
-    if(lec_dict.find(key) != lec_dict.cend()) {
-        lec_dict.find(key)->second.setTime();
+    if(lec_dict.find(key) != nullptr){
+        lec_dict.find(key)->value.setTime();
         std::cout << "Installed" << std::endl;
         return 0;
         }
-    if (sem_dict.find(key) != sem_dict.cend()) {
-        sem_dict.find(key)->second.setTime();
+    if (sem_dict.find(key) != nullptr) {
+        sem_dict.find(key)->value.setTime();
         std::cout << "Installed" << std::endl;
         return 0;
     }
-    if(lab_dict.find(key) != lab_dict.cend()) {
-        lab_dict.find(key)->second.setTime();
+    if(lab_dict.find(key) != nullptr) {
+        lab_dict.find(key)->value.setTime();
         std::cout << "Installed" << std::endl;
         return 0;
     }
@@ -319,24 +324,21 @@ int table::setHours(int key){
 
 
 int table::remove(int key){
-if(lec_dict.find(key) != lec_dict.cend()) {
-        lec_dict.find(key)->second.~lections();
-        auto deleted = lec_dict.find(key);
-        lec_dict.erase(deleted);
+if(lec_dict.find(key) != nullptr) {
+        lec_dict.find(key)->value.~lections();
+        lec_dict.erase(key);
         std::cout << "Deleted" << std::endl;
         return 0;
         }
-    if (sem_dict.find(key) != sem_dict.cend()){
-        sem_dict.find(key)->second.~seminars();
-        auto deleted = sem_dict.find(key);
-        sem_dict.erase(deleted);
+    if (sem_dict.find(key) != nullptr){
+        sem_dict.find(key)->value.~seminars();
+        sem_dict.erase(key);
         std::cout << "Deleted" << std::endl;
         return 0;
     }
-    if(lab_dict.find(1) != lab_dict.cend()) {
-        lab_dict.find(1)->second.~laboratory();
-        auto deleted = lab_dict.find(key);
-        lab_dict.erase(deleted);
+    if(lab_dict.find(key) != nullptr) {
+        lab_dict.find(key)->value.~laboratory();
+        lab_dict.erase(key);
         std::cout << "Deleted" << std::endl;
         return 0;
     }
@@ -345,22 +347,23 @@ if(lec_dict.find(key) != lec_dict.cend()) {
 }
 
 void table::printTable(){
+    int key = 0;
     std::cout << std::endl << "LECTIONS" << std::endl;
-    for (auto printed = lec_dict.begin(); printed != lec_dict.end(); printed++){
+    while (lec_dict.find(key) != nullptr){
         std::cout << std::endl;
-        std::cout << printed->first << std::endl;
-        printed->second.printInfo();
-   }
-std::cout << std::endl << "SEMINARS" << std::endl;
-    for (auto printed = sem_dict.begin(); printed != sem_dict.end(); printed++){
+        std::cout << " " << std::endl;
+        lec_dict.find(key)->value.printInfo();
+    };
+    std::cout << std::endl << "SEMINARS" << std::endl;
+    while(sem_dict.find(key) != nullptr){
         std::cout << std::endl;
-        std::cout << printed->first << std::endl;
-        printed->second.printInfo();
-   }
-std::cout << std::endl << "LABORATIONS" << std::endl;
-    for (auto printed = lab_dict.begin(); printed != lab_dict.end(); printed++){
+        std::cout << " " << std::endl;
+        sem_dict.find(key)->value.printInfo();
+    };
+    std::cout << std::endl << "LABORATIONS" << std::endl;
+    while (sem_dict.find(key) != nullptr){
         std::cout << std::endl;
-        std::cout << printed->first << std::endl;
-        printed->second.printInfo();
-   }
+        std::cout << " " << std::endl;
+        sem_dict.find(key)->value.printInfo();
+    };
 }

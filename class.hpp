@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include "mymap.hpp"
 
 class lectest;
 class semtest;
@@ -130,11 +130,11 @@ class laboratory : public desciplines{
 class table{
     private:
         //! cipher
-        unsigned int number = 0;
+        unsigned int number = 1;
         //dictionaries of our disciplines
-        std::map <int, lections> lec_dict;
-        std::map <int, seminars> sem_dict;
-        std::map <int, laboratory> lab_dict;
+        MyMap <int, lections> lec_dict;
+        MyMap <int, seminars> sem_dict;
+        MyMap <int, laboratory> lab_dict;
     public:
         // @brief function to add new element in our table
         void addNew();

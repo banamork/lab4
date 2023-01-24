@@ -13,6 +13,7 @@ template<class T1, class T2>
 class MyMapIterator{
     public:
         explicit MyMapIterator(Node<T1, T2>* node): current(node) {}
+        bool operator !=(const MyMapIterator &rhs) const;
     private:
         Node<T1, T2>* current;
 };
@@ -46,7 +47,7 @@ template<class T1, class T2>
 Node<T1, T2>* MyMap<T1, T2>::find(const T1 &key){
     Node<T1, T2> *cur = start;
     for (cur; cur->next != nullptr; cur = cur->next){
-        if (cur->data.key == key){
+        if (cur->key == key){
              return cur;
         }
     }
