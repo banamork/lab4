@@ -2,6 +2,8 @@
 #include <ostream>
 #include "class.hpp"
 
+//realization of my classes
+
 //for all:
 
 void desciplines::returnTime(){
